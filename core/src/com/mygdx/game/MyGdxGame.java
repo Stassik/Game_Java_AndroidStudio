@@ -5,7 +5,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.units.BaseHero;
@@ -68,9 +70,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
 		batch.draw(fon, 0, 0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		for (int i = 0; i < holyTeam.size(); i++) {
-			int x = holyTeam.get(i).pos.x;
-			int y = (holyTeam.get(i).pos.y - 1) * Gdx.graphics.getHeight()/10;
+		for (int i = holyTeam.size()-1; i >= 0 ; i--) {
+			batch.setColor(1, 1, 1, 1);
+			if (holyTeam.get(i).status.equals("died")) batch.setColor(Color.RED);
+			int x = (holyTeam.get(i).pos.y - 1) * Gdx.graphics.getWidth()/12;
+			int y = (holyTeam.get(i).pos.x - 1) * Gdx.graphics.getHeight()/12;
 			switch (holyTeam.get(i).className) {
 				case "Арбалетчик":
 					batch.draw(arbalester, x, y);
@@ -92,10 +96,58 @@ public class MyGdxGame extends ApplicationAdapter {
 					break;
 				case "Оруженосец":
 					batch.draw(armsman, x, y);
-
+			}
+			batch.setColor(1, 1, 1, 1);
+			if (darkTeam.get(i).status.equals("died")) batch.setColor(Color.RED);
+			x = (darkTeam.get(i).pos.y +1) * Gdx.graphics.getWidth()/12;
+			y = (darkTeam.get(i).pos.x-1) * Gdx.graphics.getHeight()/12;
+			switch (darkTeam.get(i).className){
+				case "Арбалетчик":
+					Sprite sprite = new Sprite(arbalester);
+					sprite.setPosition(x, y);
+					sprite.flip(true, false);
+					sprite.draw(batch);
+					break;
+				case "Маг":
+					sprite = new Sprite(mage);
+					sprite.setPosition(x, y);
+					sprite.flip(true, false);
+					sprite.draw(batch);
+					break;
+				case "Монах":
+					sprite = new Sprite(monk);
+					sprite.setPosition(x, y);
+					sprite.flip(true, false);
+					sprite.draw(batch);
+					break;
+				case "Оруженосец":
+					sprite = new Sprite(armsman);
+					sprite.setPosition(x, y);
+					sprite.flip(true, false);
+					sprite.draw(batch);
+					break;
+				case "Разбойник":
+					sprite = new Sprite(robber);
+					sprite.setPosition(x, y);
+					sprite.flip(true, false);
+					sprite.draw(batch);
+					break;
+				case "Снайпер":
+					sprite = new Sprite(sniper);
+					sprite.setPosition(x, y);
+					sprite.flip(true, false);
+					sprite.draw(batch);
+					break;
+				case "Копейщик":
+					sprite = new Sprite(spearman);
+					sprite.setPosition(x, y);
+					sprite.flip(true, false);
+					sprite.draw(batch);
+					break;
 			}
 
 		}
+		batch.setColor(1, 1, 1, 1);
 		batch.end();
 	}
 	
