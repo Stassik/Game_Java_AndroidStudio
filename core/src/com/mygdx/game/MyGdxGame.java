@@ -50,7 +50,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render () {
 
 		//if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-		allTeam = BaseHero.sortedPriority(darkTeam, holyTeam);
+
 			for (BaseHero unit : allTeam) {
 				if (holyTeam.contains(unit)) {
 					unit.step(darkTeam, holyTeam, allTeam);
@@ -62,6 +62,13 @@ public class MyGdxGame extends ApplicationAdapter {
 				if (u.status.equals("busy")) {
 					u.status = "stand";
 				}
+			}
+		allTeam = BaseHero.sortedPriority(darkTeam, holyTeam);
+			if (!BaseHero.checkedTeam(holyTeam) && BaseHero.checkedTeam(darkTeam)) {
+				System.out.println("Dark Team is win!");
+
+			} else if (BaseHero.checkedTeam(holyTeam) && !BaseHero.checkedTeam(darkTeam)){
+				System.out.println("Holly Team is win!");
 			}
 
 		//}
@@ -97,6 +104,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				case "Оруженосец":
 					batch.draw(armsman, x, y);
 			}
+
 			batch.setColor(1, 1, 1, 1);
 			if (darkTeam.get(i).status.equals("died")) batch.setColor(Color.RED);
 			x = (darkTeam.get(i).pos.y +1) * Gdx.graphics.getWidth()/12;
